@@ -22,13 +22,13 @@ app.get("/", (req, res) => {
   res.json({ Hello: "World" });
 });
 
-app.post("/profile", (req, res) => {
+app.post("/profile", async (req, res) => {
   // get the sent in data from the request body
   const title = req.body.title;
   const body = req.body.body;
 
   // create a new profile with it
-  const profile = new Profile({
+  await Profile.create({
     title: title,
     body: body,
   });
