@@ -28,12 +28,16 @@ app.post("/profile", async (req, res) => {
   const body = req.body.body;
 
   // create a new profile with it
-  await Profile.create({
+  const profile = await Profile.create({
     title: title,
     body: body,
   });
   // respond with the created profile
+  res.json({ profile: profile });
 });
 
 // start server
-app.listen(process.env.PORT);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
