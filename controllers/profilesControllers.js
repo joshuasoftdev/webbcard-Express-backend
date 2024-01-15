@@ -3,7 +3,7 @@ const Profile = require("../models/profile");
 const fetchProfiles = async (req, res) => {
   // get all profiles
   const profiles = await Profile.find();
-  res.json({ profiles: profiles });
+  res.json({ profiles });
 };
 
 const fetchProfile = async (req, res) => {
@@ -14,7 +14,7 @@ const fetchProfile = async (req, res) => {
   const profile = await Profile.findById(profileId);
 
   // respond with it
-  res.json({ profile: profile });
+  res.json({ profile });
 };
 
 const createProfile = async (req, res) => {
@@ -23,11 +23,11 @@ const createProfile = async (req, res) => {
 
   // create a new profile with it
   const profile = await Profile.create({
-    title: title,
-    body: body,
+    title,
+    body,
   });
   // respond with the created profile
-  res.json({ profiles: profile });
+  res.json({ profile });
 };
 
 const updateProfile = async (req, res) => {
@@ -35,18 +35,16 @@ const updateProfile = async (req, res) => {
   const profileId = req.params.id;
 
   // get the sent in data from the request body
-  const title = req.body.title;
-  const body = req.body.body;
-
+  const { title, body } = req.body;
   // find the profile with this id and update it's title and body
   await Profile.findByIdAndUpdate(profileId, {
-    title: title,
-    body: body,
+    title,
+    body,
   });
 
   const profile = await Profile.findById(profileId);
   // respond with the updated profile
-  res.json({ profile: profile });
+  res.json({ profile });
 };
 
 const deleteProfile = async (req, res) => {
